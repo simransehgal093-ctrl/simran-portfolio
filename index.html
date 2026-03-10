@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Portfolio</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-main: #0b0f24; /* uniform navy blue */
+      --whiteish: #f8f6ff;
+      --muted: #d9d2ea;
+      --acc-purple: #A46CFF;
+      --acc-blue: #4AB6FF;
+      --card-bg: rgba(255,255,255,0.03);
+      --glass: rgba(255,255,255,0.04);
+      --maxw: 1200px;
+      --radius: 14px;
+    }
+ /* section title - updated to match Achievement heading style */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 18px;
+  background: linear-gradient(90deg, #cdb4ff, #8be4ff); /* gradient like Achievements heading */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+
+    
+    /* reset */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: var(--whiteish);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding-bottom:80px;
+
+      /* uniform navy background (no gradients dividing sections) */
+      background: var(--bg-main);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* sparkle stars effect overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      /* scattered tiny radial-gradients to simulate subtle sparkles */
+      background-image:
+        radial-gradient(1.6px 1.6px at 8% 12%, rgba(255,255,255,0.95), transparent),
+        radial-gradient(1.2px 1.2px at 18% 44%, rgba(255,255,255,0.85), transparent),
+        radial-gradient(1.4px 1.4px at 28% 76%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1.2px 1.2px at 42% 22%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1.6px 1.6px at 60% 10%, rgba(255,255,255,0.95), transparent),
+        radial-gradient(1.1px 1.1px at 72% 48%, rgba(255,255,255,0.78), transparent),
+        radial-gradient(1.3px 1.3px at 86% 72%, rgba(255,255,255,0.88), transparent),
+        radial-gradient(1.0px 1.0px at 50% 55%, rgba(255,255,255,0.6), transparent);
+      background-repeat: repeat;
+      background-size: 420px 420px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.72;
+      animation: subtle-twinkle 5.5s infinite linear;
+      will-change: opacity;
+    }
+
+    @keyframes subtle-twinkle {
+      0% { opacity: 0.55; }
+      50% { opacity: 0.95; }
+      100% { opacity: 0.55; }
+    }
+
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:28px 20px;position:relative;z-index:1}
+
+    /* header */
+    header.site-header{
+      position:sticky;top:0;z-index:90;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-bottom: 1px solid rgba(255,255,255,0.02);
+      backdrop-filter: blur(6px);
+    }
+    .nav-inner{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;gap:12px}
+    .brand{font-family:'Playfair Display',serif;color:var(--acc-purple);font-weight:700;padding:8px 14px;border-radius:28px;border:1px solid rgba(164,108,255,0.12);background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+    nav.primary{display:flex;gap:16px}
+    nav.primary a{color:var(--whiteish);text-decoration:none;font-weight:600;padding:6px 8px}
+    .download-btn{background:linear-gradient(90deg,var(--acc-purple),var(--acc-blue));padding:8px 14px;border-radius:10px;color:#060606;font-weight:800}
+
+    /* HERO */
+    #hero{padding:56px 0 28px;position:relative}
+    .hero-panel{
+      max-width:var(--maxw);margin:0 auto;display:flex;gap:28px;align-items:center;padding:30px;border-radius:var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)) padding-box,
+        linear-gradient(90deg, rgba(164,108,255,0.12), rgba(74,182,255,0.08)) border-box;
+      border:2px solid transparent;
+      box-shadow: 0 26px 90px rgba(4,6,18,0.7);
+      position:relative;overflow:visible;
+    }
+
+    .hero-panel:before, .hero-panel:after{
+      content:"";position:absolute;width:120px;height:56px;border-radius:8px;transform:skewX(-18deg);
+      background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);border:1px solid rgba(255,255,255,0.03);
+      top:-28px; right:28px;opacity:.95;
+    }
+    .hero-panel:after{left:-28px; right:auto; bottom:-28px; top:auto; transform:skewX(18deg); border-right-color:transparent; border-bottom-color:transparent}
+
+    .hero-left{flex:1;z-index:2;padding-right:10px}
+    .hero-right{width:270px;display:flex;justify-content:center;align-items:center;position:relative;z-index:2}
+
+    .hero-left h1{font-family:'Playfair Display',serif;font-size:36px;color:var(--whiteish);line-height:1.06;margin-bottom:6px}
+    .hero-left h1 .line1{display:block}
+    .typed-wrap{display:block;margin-top:8px}
+    .typed-line{display:inline-block;color:var(--acc-purple);font-weight:800;font-size:28px}
+    .cursor{display:inline-block;width:2px;margin-left:8px;background:var(--acc-blue);height:1.05em;vertical-align:middle;animation:blink 700ms infinite}
+    @keyframes blink{0%{opacity:1}50%{opacity:0}100%{opacity:1}}
+
+    .hero-left p.lead{color:var(--muted);margin-top:18px;margin-bottom:12px;display:block;max-width:780px}
+    .in-short{display:block;margin-top:16px;color:var(--muted);font-weight:600}
+
+    .hero-cta{display:flex;gap:12px;margin-top:14px}
+    .btn-solid{padding:12px 18px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--acc-purple),var(--acc-blue));color:#050506;font-weight:800;cursor:pointer;box-shadow:0 14px 38px rgba(120,70,255,0.16)}
+    .btn-outline{padding:10px 16px;border-radius:10px;border:1.4px solid rgba(164,108,255,0.28);background:transparent;color:var(--whiteish);font-weight:700;cursor:pointer}
+
+    .hero-socials{display:flex;gap:10px;margin-top:16px}
+    .social-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.02);color:var(--whiteish);text-decoration:none;font-weight:700}
+
+    .profile-photo{width:270px;height:270px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);box-shadow:0 30px 90px rgba(48,38,85,0.26)}
+    .profile-photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .hero-glow{position:absolute;right:6%;top:18%;width:520px;height:360px;border-radius:50%;filter:blur(120px);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(74,182,255,0.22), rgba(74,182,255,0.08) 12%, transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(164,108,255,0.20), transparent 30%);
+      pointer-events:none;z-index:1;mix-blend-mode:screen}
+
+    /* section title */
+    section{padding:44px 0}
+    .section-title{font-family:'Playfair Display',serif;font-size:30px;color:var(--whiteish);text-align:center;margin-bottom:18px;text-shadow:0 10px 30px rgba(0,0,0,0.6)}
+
+    /* about */
+    .about-inner{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:26px;align-items:start}
+    .about-text{color:var(--muted);font-size:15.2px}
+    .about-bottom-points{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-start}
+    .point-pill{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:10px 12px;border-radius:10px;border:1px solid rgba(164,108,255,0.08);color:var(--whiteish);font-weight:700}
+
+    .feature-list{display:flex;flex-direction:column;gap:14px}
+    .feature{background:linear-gradient(90deg, rgba(164,108,255,0.06), rgba(74,182,255,0.03));padding:14px;border-radius:12px;border:1px solid rgba(164,108,255,0.12);min-height:86px}
+    .feature h4{font-family:'Playfair Display',serif;margin-bottom:6px;color:var(--whiteish)}
+    .feature p{color:var(--muted);font-size:13px}
+
+    /* SKILLS: 6 square cards (3x2) */
+    .skills-grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .skill-card{
+      aspect-ratio:1/1;
+      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.008));
+      border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.03);
+      display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 14px 40px rgba(8,8,14,0.6);
+    }
+    .skill-card .title{font-weight:800;font-size:18px;color:var(--whiteish)}
+    .skill-card .desc{color:var(--muted);font-size:13.5px;margin-top:8px}
+    .skill-grid-row{display:flex;justify-content:space-between;gap:10px;margin-top:12px}
+    .skill-mini{background:linear-gradient(90deg, rgba(164,108,255,0.06), rgba(74,182,255,0.03));padding:8px;border-radius:8px;border:1px solid rgba(164,108,255,0.1);font-weight:700;color:var(--whiteish);text-align:center;font-size:13px}
+
+    /* projects */
+    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:var(--maxw);margin:0 auto}
+    .project-card{border-radius:12px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.03);box-shadow:0 16px 50px rgba(0,0,0,0.65)}
+    .project-media{height:160px;overflow:hidden}
+    .project-media img{width:100%;height:100%;object-fit:cover;display:block}
+    .project-body{padding:14px}
+    .project-heading{display:flex;justify-content:space-between;align-items:center}
+    .project-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--whiteish)}
+    .project-meta{color:var(--muted);font-size:13px;margin-top:6px}
+
+    /* certifications */
+    .cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:var(--maxw);margin:0 auto}
+    .cert-card{display:flex;gap:16px;align-items:center;background:linear-gradient(135deg, rgba(164,108,255,0.06), rgba(74,182,255,0.03));padding:16px;border-radius:14px;border:1px solid rgba(164,108,255,0.14);box-shadow:0 12px 40px rgba(40,20,80,0.12)}
+    .cert-card img{width:96px;height:96px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+    .cert-meta .title{font-weight:800;color:var(--whiteish)}
+    .cert-meta .sub{color:var(--muted);margin-top:6px}
+
+    /* achievements: second image overlay with exact text and right column heading */
+    .ach-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:var(--maxw);margin:0 auto;align-items:start}
+    .ach-photos{display:flex;flex-direction:column;gap:12px}
+    .ach-photo{border-radius:12px;overflow:hidden;border:6px solid rgba(255,255,255,0.02);position:relative}
+    .ach-photo img{width:100%;height:220px;object-fit:cover;display:block}
+
+    /* overlay for second image -- text in front */
+    .overlay {
+      position:absolute;left:0;top:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;padding:18px;
+      background: linear-gradient(180deg, rgba(7,8,26,0.28), rgba(7,8,26,0.18));
+    }
+    .overlay .overlay-text{color:var(--whiteish);font-weight:700;text-align:left;line-height:1.35;padding:10px;max-width:88%}
+
+    .ach-text{color:var(--muted)}
+    .ach-text h5{font-family:'Playfair Display',serif;color:var(--whiteish);margin-bottom:8px}
+    .ach-text ul{margin-top:8px;padding-left:18px}
+    .ach-text li{margin-bottom:12px;font-size:15.6px}
+
+    /* contact */
+    .contact-inner{max-width:var(--maxw);margin:0 auto;text-align:center}
+    .contact-card{display:inline-block;padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.08))}
+    .contact-list{display:flex;flex-direction:column;gap:10px;align-items:center;margin-top:12px}
+    .contact-row{display:flex;gap:10px;align-items:center;color:var(--whiteish);font-weight:700}
+
+    /* footer with bluish-purple gradient as in design */
+    footer{
+      margin-top:36px;text-align:center;color:#f0eaff;font-size:13px;padding:22px 0;
+      background: linear-gradient(90deg, rgba(164,108,255,0.12), rgba(74,182,255,0.10));
+      border-top:1px solid rgba(255,255,255,0.02);
+    }
+
+    /* responsive */
+    @media (max-width:1050px){
+      .skills-grid{grid-template-columns:repeat(2,1fr)}
+      .projects-grid{grid-template-columns:repeat(2,1fr)}
+      .cert-grid{grid-template-columns:1fr}
+      .about-inner{grid-template-columns:1fr}
+      .ach-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:720px){
+      nav.primary{display:none}
+      .download-btn{display:none}
+      .profile-photo{width:180px;height:180px}
+      .hero-panel{flex-direction:column;padding:18px}
+      .hero-left h1{font-size:24px}
+      .skills-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="site-header">
+    <div class="nav-inner">
+      <div class="brand">Portfolio</div>
+
+      <nav class="primary" aria-label="Primary">
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#certifications">Education</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#contact">Connect</a>
+      </nav>
+
+      <!-- Resume Dropdown -->
+<!-- Resume Dropdown -->
+<div class="resume-dropdown" style="display:inline-block; position: relative;">
+  <a class="download-btn" href="#">Download Resume</a>
+  <div class="dropdown-content" style="display:none; position:absolute; background-color:#fff; min-width:160px; box-shadow:0px 8px 16px rgba(0,0,0,0.2); z-index:1;">
+    <a href="assets/simran uiux resume.pdf" target="_blank" style="padding:10px 16px; display:block; text-decoration:none; color:#000;">UI/UX designer</a>
+    <a href="assets/simran sehgal resume.pdf" target="_blank" style="padding:10px 16px; display:block; text-decoration:none; color:#000;">Resume</a>
+  </div>
+</div>
+
+<!-- Script for hover -->
+<script>
+const resumeDropdown = document.querySelector('.resume-dropdown');
+const dropdownContent = resumeDropdown.querySelector('.dropdown-content');
+
+resumeDropdown.addEventListener('mouseenter', () => {
+  dropdownContent.style.display = 'block';
+});
+
+resumeDropdown.addEventListener('mouseleave', () => {
+  dropdownContent.style.display = 'none';
+});
+</script>
+
+
+<!-- Styles -->
+<style>
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown:hover .download-btn {
+  background-color: #555; /* Optional hover effect */
+  color: #fff;
+}
+.download-btn {
+  padding: 10px 20px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333;
+  transition: 0.3s;
+}
+.download-btn:hover {
+  background-color: #333;
+  color: #fff;
+}
+</style>
+
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="hero" class="wrap" aria-labelledby="hero-heading">
+      <div class="hero-panel" role="region" aria-label="Intro">
+        <div class="hero-left">
+          <h1 id="hero-heading">
+            <span class="line1">Hi, I am</span>
+            <span class="typed-wrap"><span id="typedContainer" class="typed-line"></span><span id="cursorEl" class="cursor" aria-hidden="true"></span></span>
+          </h1>
+
+          <!-- OFF THE SCREEN text and IN SHORT on separate lines -->
+          <p class="lead">
+I craft responsive, user-centric web experiences that are clean, scalable, and intuitive.  
+With a developer’s mindset and a designer’s eye for detail
+
+<p>I enjoy collaborating with teams, pitching ideas, and solving problems through code—
+  <p>transforming concepts into products people actually use.</p>.</p>
+
+
+          <div style="height:12px"></div>
+
+          
+
+          <div class="hero-cta">
+            <button class="btn-solid" onclick="scrollToSection('contact')">Let's Connect</button>
+            <button class="btn-outline" onclick="window.open('assets/simran sehgal resume.pdf', '_blank')">Resume</button>
+
+          </div>
+
+          <div class="hero-socials" aria-label="social links" style="margin-top:14px">
+            <a class="social-btn" href="https://github.com/simransehgal093-ctrl" target="_blank" title="GitHub" aria-label="GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 .5C5.73.5.75 5.48.75 11.75c0 4.96 3.22 9.17 7.69 10.65.56.1.76-.24.76-.53 0-.26-.01-1-.01-1.93-3.12.68-3.78-1.5-3.78-1.5-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.12.08 1.71 1.15 1.71 1.15 1 1.7 2.62 1.21 3.26.92.1-.72.39-1.21.71-1.49-2.49-.28-5.11-1.24-5.11-5.52 0-1.22.44-2.21 1.16-2.99-.12-.28-.5-1.4.11-2.92 0 0 .95-.3 3.1 1.14.9-.25 1.86-.38 2.82-.38.96 0 1.92.13 2.82.38 2.14-1.44 3.09-1.14 3.09-1.14.61 1.52.23 2.64.12 2.92.72.78 1.15 1.77 1.15 2.99 0 4.29-2.63 5.24-5.13 5.51.4.35.76 1.05.76 2.12 0 1.53-.01 2.76-.01 3.14 0 .29.2.64.77.53 4.47-1.49 7.68-5.7 7.68-10.65C23.25 5.48 18.27.5 12 .5z" fill="#f8f6ff"/></svg>
+            </a>
+<a class="social-btn" href="https://www.linkedin.com/in/simran-sehgal-1919ab279/" target="_blank" title="LinkedIn" aria-label="LinkedIn">
+  
+
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4.98 3.5C3.88 3.5 3 4.37 3 5.47c0 1.1.88 1.98 1.98 1.98 1.1 0 1.98-.88 1.98-1.98 0-1.1-.88-1.97-1.98-1.97zM3.5 8.75h3v12.75h-3V8.75zM9.5 8.75h2.88v1.74h.04c.4-.76 1.37-1.56 2.83-1.56 3.03 0 3.6 1.99 3.6 4.58V21.5h-3v-5.05c0-1.2-.02-2.74-1.67-2.74-1.68 0-1.94 1.31-1.94 2.66V21.5h-3V8.75z" fill="#f8f6ff"/></svg>
+            </a>
+
+            <a class="social-btn" href="mailto:simransehgal093@gmail.com" title="Gmail" aria-label="Gmail">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#f8f6ff"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="profile-photo">
+            <img src="assets/profile img.png" alt="Profile Photo"
+ onerror="this.src='https://via.placeholder.com/480'">
+          </div>
+        </div>
+
+        <div class="hero-glow" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <div class="section-title" id="about-title">About Me</div>
+
+        <div class="about-inner" role="region" aria-label="About content">
+          <div>
+            <p class="about-text">
+              I’m <strong>Simran Sehgal</strong>, a Computer Science undergraduate from Meerut with a passion for building meaningful digital experiences. I enjoy working at the intersection of design, technology, and problem-solving — creating responsive websites and intuitive user interfaces using HTML, CSS, JavaScript, React, and Figma.
+            </p>
+
+            <div class="about-bottom-points" aria-hidden="false">
+              <div class="point-pill">B.Tech in Computer Science &amp; Engineering</div>
+              <div class="point-pill">Collaborative & Team-Oriented</div>
+              <div class="point-pill">Visionary</div>
+              <div class="point-pill">Versatile &amp; quality-driven</div>
+            </div>
+
+            <p style="margin-top:18px;color:var(--muted)">
+            Beyond academics, I actively participate in activities that build leadership, teamwork, and communication skills. As a player and team leader, I’ve developed resilience, discipline, and strategic thinking—qualities I bring into every project and collaborative environment.
+            </p>
+          </div>
+
+          <aside>
+            <div class="feature-list">
+              <div class="feature">
+                <h4>UI/UX designer</h4>
+                <p>UI/UX Designer crafting intuitive, user-centered digital experiences.</p>
+              </div>
+
+              <div class="feature">
+                <h4>Frontend Developer</h4>
+                <p>HTML, CSS, JS — pixel-accurate UI, responsive layouts, and accessibility.</p>
+              </div>
+
+              <div class="feature">
+                <h4>Python & Java</h4>
+                <p>Scripting, test automation and small backend utilities.</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+
+<!-- SKILLS & TECHNOLOGIES (6 square cards) -->
+
+
+      <!-- SKILLS & TECHNOLOGIES (6 square cards) -->
+<section id="skills">
+  <div class="wrap">
+    <div class="section-title">Skills & Technologies</div>
+
+    <div class="skills-grid" role="list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+
+      <!-- Card 1 -->
+      <div class="skill-card" role="listitem" style="background:#1a1a1a; padding: 15px; border-radius: 12px; display: flex; flex-direction: column; justify-content: start;">
+        <div class="title" style="background: linear-gradient(135deg, #a18cd1, #89f7fe); -webkit-background-clip: text; color: transparent; font-weight: bold; font-size: 18px; margin-bottom: 12px; text-align: center;">
+          Frontend Technologies
+        </div>
+        <div class="desc" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 12px; flex-grow:1;">
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">HTML5</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">CSS3</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">JavaScript</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">React.js</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Responsive Web Design</span>
+         <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">REST APIs</span> 
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="skill-card" role="listitem" style="background:#1a1a1a; padding: 15px; border-radius: 12px; display: flex; flex-direction: column; justify-content: start;">
+        <div class="title" style="background: linear-gradient(135deg, #a18cd1, #89f7fe); -webkit-background-clip: text; color: transparent; font-weight: bold; font-size: 18px; margin-bottom: 12px; text-align: center;">
+          UI / UX & Design Tools
+        </div>
+        <div class="desc" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 12px; flex-grow:1;">
+          <!-- Tiles same as above -->
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Figma</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">UI/UX Design</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Wireframing</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Prototyping</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Canva</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">WordPress</span>
+         
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="skill-card" role="listitem" style="background:#1a1a1a; padding: 15px; border-radius: 12px; display: flex; flex-direction: column; justify-content: start;">
+        <div class="title" style="background: linear-gradient(135deg, #a18cd1, #89f7fe); -webkit-background-clip: text; color: transparent; font-weight: bold; font-size: 18px; margin-bottom: 12px; text-align: center;">
+          Backend & Databases
+        </div>
+        <div class="desc" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 12px; flex-grow:1;">
+          <!-- Tiles same as above -->
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Java</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Python</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">SQL</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">MongoDB</span>
+<span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Numpy</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Pandas</span>
+          
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="skill-card" role="listitem" style="background:#1a1a1a; padding: 15px; border-radius: 12px; display: flex; flex-direction: column; justify-content: start;">
+        <div class="title" style="background: linear-gradient(135deg, #a18cd1, #89f7fe); -webkit-background-clip: text; color: transparent; font-weight: bold; font-size: 18px; margin-bottom: 12px; text-align: center;">
+        Developer Tools & Platforms
+        </div>
+        <div class="desc" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 12px; flex-grow:1;">
+          <!-- Tiles same as above -->
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Git</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Github</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">VS Code </span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Google Cloud Platform </span>
+           <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Netlify </span>
+            <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Vercel </span>
+         
+        </div>
+      </div>
+<!-- Card 5 -->
+      <div class="skill-card" role="listitem" style="background:#1a1a1a; padding: 15px; border-radius: 12px; display: flex; flex-direction: column; justify-content: start;">
+        <div class="title" style="background: linear-gradient(135deg, #a18cd1, #89f7fe); -webkit-background-clip: text; color: transparent; font-weight: bold; font-size: 18px; margin-bottom: 12px; text-align: center;">
+          Programming Fundamentals
+        </div>
+        <div class="desc" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 12px; flex-grow:1;">
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Data Structures</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Algorithms</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">OOPS</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Operating System</span>
+          
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="skill-card" role="listitem" style="background:#1a1a1a; padding: 15px; border-radius: 12px; display: flex; flex-direction: column; justify-content: start;">
+        <div class="title" style="background: linear-gradient(135deg, #a18cd1, #89f7fe); -webkit-background-clip: text; color: transparent; font-weight: bold; font-size: 18px; margin-bottom: 12px; text-align: center;">
+          Web Development Concepts
+        </div>
+        <div class="desc" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 12px; flex-grow:1;">
+          <!-- Tiles same as above -->
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Full Stack Development Concepts</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">API Integration</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Responsive Design</span>
+          <span style="padding: 12px; text-align: center; font-size: 14px; border-radius: 6px; background: rgba(135,206,250,0.2); display: flex; align-items: center; justify-content: center;">Web Application Development</span>
+         
+        </div>
+      </div>
+
+      
+     
+
+</section>
+
+
+    <!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="section-title">Projects</div>
+    <p style="text-align:center;color:var(--muted);margin-bottom:14px">
+      Here are some of my projects— click to view repositories or details.
+    </p>
+
+    <div class="projects-grid" role="list">
+      
+      <!-- Project 1 -->
+      <article class="project-card" role="listitem">
+        <div class="project-media">
+          <img src="assets/facetap img.png" alt="E-commerce Website Testing" onerror="this.src='https://via.placeholder.com/800x450'">
+        </div>
+        <div class="project-body">
+          <div class="project-heading">
+            <div class="project-title">FaceTap – Facial Recognition Queue Management System</div>
+            <p><div style="color:var(--muted);font-weight:700"></div>
+          </div></p>
+            
+          <div class="project-meta">
+           
+<p>Developed a facial recognition system to optimize queue management in high-traffic areas. </p>
+<p>Reduced manual verification delays and improved security through real-time computer vision authentication.</p>
+          </div>
+          <a href="https://github.com/simransehgal093-ctrl/facetap" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 12px;background:#6a5acd;color:white;border-radius:5px;text-decoration:none;font-size:13px;">
+            View Repo
+          </a>
+        </div>
+      </article>
+
+      <!-- Project 2 -->
+      <article class="project-card" role="listitem">
+        <div class="project-media">
+          <img src="assets/ai based damage detection.png" alt="Shopping Website" onerror="this.src='https://via.placeholder.com/800x450'">
+        </div>
+        <div class="project-body">
+          <div class="project-heading">
+            <div class="project-title">RentWise – AI-Based Damage Detection System</div>
+            <div style="color:var(--muted);font-weight:700"></div>
+          </div>
+          <div class="project-meta">
+            Developed an AI-powered system using Python, OpenCV, and ML to detect structural damage from property images and enable automated inspection-based fund release for rental management.
+          </div>
+          <a href="GITHUB_REPO_LINK_2" target="_blank" style="display:inline-block;margin-top:18px;padding:5px 12px;background:#6a5acd;color:white;border-radius:5px;text-decoration:none;font-size:13px;">
+            View Repo
+          </a>
+        </div>
+      </article>
+
+      <!-- Project 3 -->
+      <article class="project-card" role="listitem">
+        <div class="project-media">
+          <img src="assets/crowdsourced.png" alt="Portfolio Website" onerror="this.src='https://via.placeholder.com/800x450'">
+        </div>
+        <div class="project-body">
+          <div class="project-heading">
+            <div class="project-title">Crowdsourced Public Problem Issue Reporter</div>
+            <div style="color:var(--muted);font-weight:700"></div>
+          </div>
+          <div class="project-meta">
+            Built a React-based civic issue reporting platform with Google Maps geolocation, image uploads, and Firebase authentication and data storage.
+          </div>
+          <a href="GITHUB_REPO_LINK_3" target="_blank" style="display:inline-block;margin-top:37px;padding:5px 12px;background:#6a5acd;color:white;border-radius:5px;text-decoration:none;font-size:13px;">
+            View Repo
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+   <!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="wrap">
+    <div class="section-title">Education</div>
+
+    <div class="cert-grid" role="list" 
+         style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:20px;">
+      
+      <!-- Cert 1 -->
+      <div class="cert-card" 
+           style="padding:16px;border-radius:10px;background:rgba(128,0,255,0.08);">
+        <div class="cert-meta">
+          <div class="title" style="font-weight:700;color:#c7a4ff;font-size:1.1rem;">Bachelor of Technology (B.Tech) – Computer Science Engineering</div>
+          <div class="sub" style="color:var(--muted);font-size:0.9rem;">Meerut Institute of Engineering and Technology | 2022 – 2026
+ <p>CGPA: 8.05 / 10</p></div>
+        </div>
+      </div>
+
+      <!-- Cert 2 -->
+      <div class="cert-card" 
+           style="padding:16px;border-radius:10px;background:rgba(128,0,255,0.08);">
+        <div class="cert-meta">
+          <div class="title" style="font-weight:700;color:#c7a4ff;font-size:1.1rem;">Senior Secondary (PCM) – CBSE</div>
+          <div class="sub" style="color:var(--muted);font-size:0.9rem;">Meerut City Public School | 2022 </div><p> 85.4%</p>
+        </div>
+      </div>
+
+      <!-- Cert 3 -->
+      <div class="cert-card" 
+           style="padding:16px;border-radius:10px;background:rgba(128,0,255,0.08);">
+        <div class="cert-meta">
+          <div class="title" style="font-weight:700;color:#c7a4ff;font-size:1.1rem;">Secondary School – CBSE</div>
+          <div class="sub" style="color:var(--muted);font-size:0.9rem;">Meerut City Public School | 2020 </div><p>91%</p>
+        </div>
+      </div>
+
+     
+</section>
+
+<!-- ACHIEVEMENTS & INTERESTS -->
+<section id="achievements" style="padding:40px 8%;">
+  <!-- Section Heading -->
+  <div class="section-title" style="font-size:2rem; margin-bottom:30px; text-align:center; font-weight:bold;">
+    Leadership and Activities 
+  </div>
+
+  <!-- FIRST BLOCK -->
+  <div style="display:flex; align-items:center; gap:30px; margin-bottom:50px;">
+    <!-- IMAGE -->
+    <div style="flex:1; max-width:400px;">
+      <img src="assets/multi.png" alt="achievement 1" style="width:100%; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.4);">
+    </div>
+    <!-- TEXT -->
+    <div style="flex:2;">
+      <ul style="list-style:none; padding:0; margin:0; font-size:1rem; color:#ddd;">
+        <li style="margin-bottom:10px;">🌟 Qualified for Smart India Hackathon (SIH) – Regional Round</li>
+        <li style="margin-bottom:10px;">🌟 Participated in multiple college-level hackathons with strong web development performance</li>
+
+<li style="margin-bottom:10px;">🌟Active member of coding, web development, and UI/UX clubs</li>
+<li style="margin-bottom:10px;">🌟 Student organizer for hackathons, technical workshops, and event websites</li>
+        <li style="margin-bottom:10px;">🌟 Represented college in state and zonal-level Basketball and Kho-Kho tournaments</li>
+
+
+
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECOND BLOCK -->
+  <div style="display:flex; align-items:center; gap:30px;">
+    <!-- IMAGE -->
+    <div style="flex:1; max-width:400px;">
+      <img src="assets/multi2.png" alt="achievement 2" style="width:100%; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.4);">
+    </div>
+    <!-- TEXT -->
+    <div style="flex:2; font-size:1rem; color:#ddd;">
+      <div style="margin-bottom:15px;">
+        <strong style="color:#cdb4ff;">Hackathons 💻:</strong>
+        <div>Participating in multiple college-level hackathons strengthened my rapid prototyping, problem-solving, and collaborative development skills.</div>
+      </div>
+      <div style="margin-bottom:15px;">
+        <strong style="color:#cdb4ff;">Smart India Hackathon – Regional Round 🚀:</strong>
+        <div>Qualified for the SIH Regional Round, demonstrating strong technical thinking, teamwork, and innovative solution building.</div>
+      </div>
+      <div style="margin-bottom:15px;">
+        <strong style="color:#cdb4ff;">Student Organizer 👩‍💻:</strong>
+        <div>Organized hackathons, technical workshops, and developed event websites, building leadership, coordination, and management skills.</div>
+      </div>
+      <div style="margin-bottom:15px;">
+        <strong style="color:#cdb4ff;">Sports – Basketball & Kho-Kho 🏀:</strong>
+        <div>Represented my college in zonal and state-level tournaments, developing resilience, teamwork, discipline, and competitive spirit.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+   <!-- CONTACT -->
+<section id="contact">
+  <div class="wrap contact-inner">
+    <div class="section-title">Let's Connect</div>
+
+    <div class="contact-card" role="region" aria-label="Contact card">
+      <p style="color:var(--muted);margin-bottom:8px">
+        Looking to collaborate or hire? Contact me through any of the handles below.
+      </p>
+
+      <div class="contact-list">
+        <div class="contact-row">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M2 4h20v16H2z" fill="#e9e0f6"/>
+          </svg>
+          <span>simransehgal093@gmail.com</span>
+        </div>
+        <div class="contact-row">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+           
+          
+
+
+      <div style="margin-top:14px;color:var(--muted)">Find me on</div>
+      <div style="margin-top:12px;display:flex;gap:14px;justify-content:center">
+        <a href="https://github.com/simransehgal093-ctrl" target="_blank" 
+           style="color:var(--whiteish);text-decoration:none;font-weight:700;
+                  background: rgba(128, 0, 255, 0.2); padding: 6px 12px; border-radius:8px;">
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/simran-sehgal-1919ab279/" target="_blank" 
+           style="color:var(--whiteish);text-decoration:none;font-weight:700;
+                  background: rgba(128, 0, 255, 0.2); padding: 6px 12px; border-radius:8px;">
+          LinkedIn
+        </a>
+        <a href="mailto:simransehgal093@gmail.com" 
+           style="color:var(--whiteish);text-decoration:none;font-weight:700;
+                  background: rgba(128, 0, 255, 0.2); padding: 6px 12px; border-radius:8px;">
+          Gmail
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <footer>
+    <div style="max-width:var(--maxw);margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px">
+      <div style="font-weight:700">© 2025 • All Rights Reserved</div>
+      <div style="opacity:0.9">Made with ❤️ and RedBull </div>
+    </div>
+  </footer>
+
+  <script>
+    /********* Continuous typing loop (I am static; typed line cycles) *********/
+    (function(){
+      const typedEl = document.getElementById('typedContainer');
+      const cursorEl = document.getElementById('cursorEl');
+      const words = ["Simran Sehgal","a UI/UX designer", "a Web Developer", "Software Engineer","Articulate Communicator"];
+      let wi = 0, ci = 0, typing = true;
+
+      function typeChar(){
+        const word = words[wi];
+        typedEl.textContent = word.slice(0, ci + 1);
+        ci++;
+        if(ci === word.length){
+          setTimeout(() => { typing = false; requestAnimationFrame(eraseChar); }, 900);
+        } else {
+          setTimeout(() => requestAnimationFrame(typeChar), 80);
+        }
+      }
+
+      function eraseChar(){
+        const word = words[wi];
+        typedEl.textContent = word.slice(0, ci - 1);
+        ci--;
+        if(ci === 0){
+          wi = (wi + 1) % words.length;
+          typing = true;
+          setTimeout(() => { requestAnimationFrame(typeChar); }, 250);
+        } else {
+          setTimeout(() => requestAnimationFrame(eraseChar), 45);
+        }
+      }
+
+      requestAnimationFrame(typeChar);
+      cursorEl.style.display = 'inline-block';
+    })();
+
+    /* helpers */
+    function scrollToSection(id){
+      const el = document.getElementById(id); if(!el) return;
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    function downloadResume(){
+      const blob = new Blob(["Lorem Ipsum — Resume\n\nReplace this with your actual PDF."], {type: 'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = "Lorem-Ipsum-Resume.txt"; a.click(); URL.revokeObjectURL(url);
+    }
+    document.getElementById('downloadResume').addEventListener('click', function(e){ e.preventDefault(); downloadResume(); });
+
+    function openLink(e, url){ e.preventDefault(); window.open(url, '_blank'); }
+
+    
+  function scrollToSection(id) {
+    const section = document.getElementById(id);
+    section.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  </script>
+</body>
+</html>
+
